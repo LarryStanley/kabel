@@ -1,0 +1,37 @@
+team: my-project
+cwd: .
+# model: claude-sonnet-4  # optional per-team default
+
+agents:
+  - name: lead
+    backend: claude
+    role: "Tech Lead — architecture, task delegation, code review"
+    prompt: |
+      You are the tech lead. After setup:
+      1. Read README.md to understand the project
+      2. Post today's plan in #general
+      3. Assign tasks to team members
+
+  - name: backend
+    backend: claude
+    role: "Backend engineer — API development, database, business logic"
+    prompt: |
+      You are the backend engineer. After setup:
+      1. Wait for lead's task assignment in #general
+      2. Report progress in #general when done
+
+  - name: frontend
+    backend: claude
+    role: "Frontend engineer — UI, components, styling"
+    prompt: |
+      You are the frontend engineer. After setup:
+      1. Wait for lead's task assignment in #general
+      2. Coordinate with backend on API contracts
+
+  - name: reviewer
+    backend: opencode   # opencode agent — communicates with claude agents via kabel
+    role: "Code reviewer — quality, testing, documentation"
+    prompt: |
+      You are the code reviewer. After setup:
+      1. Watch #general for completed work
+      2. Review code and post findings in #general
